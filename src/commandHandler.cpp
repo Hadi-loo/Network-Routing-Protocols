@@ -51,9 +51,16 @@ void CommandHandler::start() {
             handleLsrp(src);
         }
         else if (command == "dvrp") {
-            int src;
-            ss >> src;
-            handleDvrp(src);
+            string args;
+            args = line.substr(command.length());
+            if (args == "") {
+                handleDvrp(-1);
+            }
+            else {
+                int src;
+                ss >> src;
+                handleDvrp(src);
+            }
         }
         else {
             cout << RED << "Invalid Command" << RESET << endl;
@@ -61,7 +68,6 @@ void CommandHandler::start() {
     }
 
 }
-
 
 void CommandHandler::handleTopology(string args) {
     stringstream ss(args);
