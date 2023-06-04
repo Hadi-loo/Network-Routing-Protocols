@@ -72,25 +72,40 @@ void Graph::showAdjacencyMatrix() {
     
         cout << "Adjacency Matrix:" << endl;
 
-        cout << "  " << MAGENTA;
+        cout << "   " << MAGENTA;
         for (auto vertex : vertices) {
-            cout << " " << vertex << " ";
+            if (vertex < 10) {
+                cout << "  " << vertex << " ";
+            }
+            else { 
+                cout << " " << vertex << " ";    
+            }        
         }
         cout << RESET << endl;
 
         for (auto vertex : vertices) {
-            cout << MAGENTA << vertex << RESET << " ";
+            if (vertex < 10) {
+                cout << MAGENTA << vertex << RESET << "  ";
+            }
+            else {
+                cout << MAGENTA << vertex << RESET << " ";
+            }
             for (auto vertex2 : vertices) {
                 if (vertex == vertex2) {
-                    cout << " 0 ";
+                    cout << "  0 ";
                     continue;
                 }
                 auto edge = edges.find(make_pair(vertex, vertex2));
                 if (edge != edges.end()) {
-                    cout << " " << edge->second << " ";
+                    if (edge->second < 10) {
+                        cout << "  " << edge->second << " ";
+                    }                    
+                    else {
+                        cout << " " << edge->second << " ";
+                    }
                 }
                 else {
-                    cout << "-1 ";
+                    cout << " -1 ";
                 }
             }
             cout << endl;

@@ -10,10 +10,11 @@ class Graph {
 private:
     int numVertices;
     int numEdges;
+    
+public:
     set <int> vertices;
     map <pair<int, int>, int> edges;
 
-public:
     Graph();
     ~Graph();
     void addEdge(int v1, int v2, int weight);
