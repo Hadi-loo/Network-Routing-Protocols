@@ -2,6 +2,9 @@
 #define __NETWORK_HPP__
 
 #include "graph.hpp"
+#include <vector>
+#include <climits>
+#include <iostream>
 
 class Network {
 private:
