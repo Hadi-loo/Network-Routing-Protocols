@@ -125,11 +125,15 @@ void CommandHandler::handleRemove(string args) {
 }
 
 void CommandHandler::handleLsrp(int src) {
-    network->lsrp(src);
+    double total_time = 0;
+    network->lsrp(src, total_time);
+    cout << YELLOW << "Total time: " << total_time << " ns" << RESET << endl;
 }
 
 void CommandHandler::handleDvrp(int src) {
-    network->dvrp(src);
+    double total_time = 0;
+    network->dvrp(src, total_time);
+    cout << YELLOW << "Total time: " << total_time << " ns" << RESET << endl;
 }
 
 

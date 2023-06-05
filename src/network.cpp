@@ -94,13 +94,16 @@ void Network::printLsrpOverview(int dist[] , int source, vector<int> &parent){
     }
 }
 
-void Network::lsrp(int source) {
+void Network::lsrp(int source, double& total_time) {
     if (source == -1) {
         for (auto vertex : graph.vertices) {
-            lsrp(vertex);
+            lsrp(vertex, total_time);
         }
     }
     else{
+        double time = 0;
+        auto start = chrono::high_resolution_clock::now();
+
         int dist[graph.vertices.size() + 1];                            // Hold the shortest path data
         bool visited[graph.vertices.size() + 1];                        // hold the covered area of the lsrp
         vector<int> parent(graph.vertices.size() + 1, -1);
@@ -108,11 +111,18 @@ void Network::lsrp(int source) {
         for (int i = 0; i < (int)graph.vertices.size() + 1 ; i++){      // initialize arrays
             dist[i] = INT_MAX; visited[i] = false;
         }
+
         dist[source] = 0;
         visited[source] = true;
         updateNeigborsRoute(source, dist, visited, parent);
+
+        auto end = chrono::high_resolution_clock::now();
+        time += chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+
         cout << MAGENTA << "Routing table for node " << source << RESET << endl;
         printLsrpIterations(0 , dist);
+
+        start = chrono::high_resolution_clock::now();
 
         for (int i = 0 ; i < (int)graph.vertices.size() + 1 ; i++){     // Run LSRP
             int u = findMinAdjacent(dist, visited);
@@ -120,20 +130,32 @@ void Network::lsrp(int source) {
                 break;
             visited[u] = true;
             updateNeigborsRoute(u, dist, visited, parent);
+
+            end = chrono::high_resolution_clock::now();
+            time += chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+
             printLsrpIterations(i , dist);
+
+            start = chrono::high_resolution_clock::now();
         }
         printLsrpOverview(dist, source, parent);
+        cout << "Time: " << time << " nanoseconds" << endl;
+        total_time += time;
     }
     return;
 }
 
-void Network::dvrp(int source) {
+void Network::dvrp(int source, double &total_time) {
     if (source == -1) {
         for (auto vertex : graph.vertices) {
-            dvrp(vertex);
+            dvrp(vertex, total_time);
         }
     }
     else {
+
+        double time = 0;
+        auto start = chrono::high_resolution_clock::now();
+
         vector<int> distance(graph.vertices.size() + 1, INT_MAX);
         vector<int> parent(graph.vertices.size() + 1, -1);
         distance[source] = 0;
@@ -152,6 +174,9 @@ void Network::dvrp(int source) {
                 }
             }
         } while (updated);
+
+        auto end = chrono::high_resolution_clock::now();
+        time += chrono::duration_cast<chrono::nanoseconds>(end - start).count();
                 
         cout << MAGENTA << "Routing table for node " << source << RESET << endl;
         cout << CYAN << "Destination\tNext Hop\tDistance\tShortest Path" << RESET << endl;
@@ -178,6 +203,8 @@ void Network::dvrp(int source) {
             }
             cout << path[0] << endl;
         }
+        cout << "Time: " << time << " ns" << endl;
+        total_time += time;
     }
     return;
 }

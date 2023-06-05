@@ -5,6 +5,7 @@
 #include <vector>
 #include <climits>
 #include <iostream>
+#include <chrono>
 
 class Network {
 private:
@@ -17,8 +18,8 @@ public:
     void modifyEdge(int v1, int v2, int weight);
     void removeEdge(int v1, int v2);
     void showAdjacencyMatrix();
-    void lsrp(int source);
-    void dvrp(int source);
+    void lsrp(int source, double& total_time);
+    void dvrp(int source, double& total_time);
     int findMinAdjacent(int dist[] , bool visited[]);
     void updateNeigborsRoute(int newVertice, int dist[] , bool visited[], vector<int> &parent);
     void printLsrpIterations(int iterNum, int dist[]);
