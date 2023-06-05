@@ -1,6 +1,6 @@
 # CN_CHomeworks3
 
-This repo is a simulation of two routing protocols, distance vector and link state coded with c++.
+This repo contains a simulation of two famous routing protocols, **distance vector** and **link state** coded with c++.
 
 ## How to run
 run the following commands in terminal:
