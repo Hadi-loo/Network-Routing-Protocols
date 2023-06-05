@@ -22,6 +22,7 @@ public:
     int findMinAdjacent(int dist[] , bool visited[]);
     void updateNeigborsRoute(int newVertice, int dist[] , bool visited[], vector<int> &parent);
     void printLsrpIterations(int iterNum, int dist[]);
+    void printLsrpOverview(int dist[] , int source, vector<int> &parent);
 };
 
 #endif // __NETWORK_HPP__

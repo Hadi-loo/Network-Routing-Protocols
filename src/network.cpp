@@ -71,16 +71,33 @@ void Network::printLsrpIterations(int iterNum, int dist[]){
     cout << "\n------------------------\n";
 }
 
-// void Network:printLsrpOverview(){
-
-// }
+void Network::printLsrpOverview(int dist[] , int source, vector<int> &parent){
+    cout << CYAN << "Path [s] -> [d] | Min-Cost | Shortest-Path" << RESET << endl;
+    for(int i = 1 ; i < graph.vertices.size() + 1 ; i++){
+        if (i == source)
+            continue;
+        cout << source << "->" << i << " | ";
+        auto it = graph.vertices.find(i);
+        cout << dist[*it] << " | ";
+        
+        vector<int> path;
+            int current = i;
+            while (parent[current] != -1) {
+                path.push_back(current);
+                current = parent[current];
+            }
+        path.push_back(current);
+        for (int i = path.size() - 1; i > 0; i--) {
+                cout << path[i] << "->";
+        }
+        cout << path[0] << endl;
+    }
+}
 
 void Network::lsrp(int source) {
     if (source == -1) {
         for (auto vertex : graph.vertices) {
-            cout << vertex << endl;
             lsrp(vertex);
-        // cout << "------------node: " << vertex << "-------------\n";
         }
     }
     else{
@@ -102,10 +119,10 @@ void Network::lsrp(int source) {
             if(u == -1)
                 break;
             visited[u] = true;
-            // cout << "new v:" << u << endl;
             updateNeigborsRoute(u, dist, visited, parent);
             printLsrpIterations(i , dist);
         }
+        printLsrpOverview(dist, source, parent);
     }
     return;
 }
