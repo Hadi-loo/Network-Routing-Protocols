@@ -34,3 +34,15 @@ This command can be used to modify the cost of and edge
 ```
 modify s-d-c
 ```
+
+### lsrp
+By using this command, the LSRP routing algorithm will be run through the network. if the source node are given as an argument, the algorithm works on that node, otherwise, the algorithm runs for every node in the network.
+```
+lsrp s
+```
+
+### dvrp
+By using this command, the DVRP routing algorithm will be run through the network. if the source node are given as an argument, the algorithm works on that node, otherwise, the algorithm runs for every node in the network.
+```
+dvrp s
+```
