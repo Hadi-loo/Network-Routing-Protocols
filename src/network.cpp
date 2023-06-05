@@ -46,7 +46,7 @@ void Network::updateNeigborsRoute(int newVertice, int dist[] , bool visited[], v
 
     for (int i = 0 ; i < (int)graph.vertices.size() + 1; i++){
         if(visited[i] == false && dist[newVertice] != INT_MAX
-            && graph.edges[make_pair(newVertice, i)] != 0
+            && graph.edges.count(make_pair(newVertice, i)) > 0
             && dist[newVertice] + graph.edges[make_pair(newVertice, i)] < dist[i]){
                 dist[i] = dist[newVertice] + graph.edges[make_pair(newVertice, i)];
                 parent[i] = newVertice;
