@@ -37,7 +37,9 @@ modify s-d-c
 ```
 
 ### lsrp
-By using this command, the LSRP routing algorithm will be run through the network. if the source node are given as an argument, the algorithm works on that node, otherwise, the algorithm runs for every node in the network.
+By using this command, the LSRP routing algorithm will be run through the network. if the source node are given as an argument, the algorithm works on that node, otherwise, the algorithm runs for every node in the network.   
+   
+LSRP is an algorithm used in scheduling problems to determine the order in which tasks should be processed. The goal is to minimize the overall delay or completion time of all tasks. In LSRP, the task with the least slack, which is the difference between the task's deadline and its execution time, is given the highest priority. By prioritizing tasks with less slack, LSRP aims to reduce the chance of missing deadlines and optimize overall performance.
 ```
 lsrp s
 ```
@@ -45,7 +47,9 @@ lsrp s
 
 
 ### dvrp
-By using this command, the DVRP routing algorithm will be run through the network. if the source node are given as an argument, the algorithm works on that node, otherwise, the algorithm runs for every node in the network.
+By using this command, the DVRP routing algorithm will be run through the network. if the source node are given as an argument, the algorithm works on that node, otherwise, the algorithm runs for every node in the network.   
+     
+DVRP is a variant of the Vehicle Routing Problem (VRP) that deals with dynamically changing conditions, such as real-time traffic or varying customer demands. The objective of DVRP is to optimize the routes and schedules for a fleet of vehicles to efficiently serve a set of customers. It involves making real-time decisions on vehicle assignment, route planning, and scheduling to minimize costs, such as fuel consumption or total travel time, while satisfying customer requirements. DVRP algorithms typically consider factors like current vehicle locations, customer requests, and traffic information to dynamically adjust the routes and schedules of vehicles in response to changing conditions.
 ```
 dvrp s
 ```
@@ -66,5 +70,5 @@ DVRP on all nodes runtime: 210529 ns
 
 
 In both scenarios, DVRP works faster than LVRP.     
-Note that in measuring the runtime of each algorithm, we didn't measured the print operations time, because it may make hish errors in the results, as the output of the LVRP is much more than DVRP. 
+Note that in measuring the runtime of each algorithm, we didn't measured the print operations time, because it may result in high errors in the measured times, as the output of the LVRP is much more than DVRP. 
 
