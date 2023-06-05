@@ -19,6 +19,9 @@ public:
     void showAdjacencyMatrix();
     void lsrp(int source);
     void dvrp(int source);
+    int findMinAdjacent(int dist[] , bool visited[]);
+    void updateNeigborsRoute(int newVertice, int dist[] , bool visited[], vector<int> &parent);
+    void printLsrpIterations(int iterNum, int dist[]);
 };
 
 #endif // __NETWORK_HPP__

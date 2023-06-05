@@ -28,8 +28,85 @@ void Network::showAdjacencyMatrix() {
     return;
 }
 
+int Network::findMinAdjacent(int dist[] , bool visited[]){
+    int min_index = -1;
+    int min_vertice = INT_MAX;
+
+    for(int i = 0 ; i < (int)graph.vertices.size() + 1 ; i++){
+        if(visited[i] == false && dist[i] < min_vertice){
+            min_vertice = dist[i];
+            min_index = i;
+        }
+    }
+
+    return min_index;
+}
+
+void Network::updateNeigborsRoute(int newVertice, int dist[] , bool visited[], vector<int> &parent){
+
+    for (int i = 0 ; i < (int)graph.vertices.size() + 1; i++){
+        if(visited[i] == false && dist[newVertice] != INT_MAX
+            && graph.edges[make_pair(newVertice, i)] != 0
+            && dist[newVertice] + graph.edges[make_pair(newVertice, i)] < dist[i]){
+                dist[i] = dist[newVertice] + graph.edges[make_pair(newVertice, i)];
+                parent[i] = newVertice;
+        }
+    }
+
+}
+
+void Network::printLsrpIterations(int iterNum, int dist[]){
+    cout << "Iter " << iterNum << ":" << endl;
+    cout << "Dest ";
+    for(int i = 1 ; i <= (int)graph.vertices.size() ; i++)
+        cout << i << " | ";
+    cout << "\nCost ";
+    for(int i = 1; i <= (int)graph.vertices.size() ; i++){
+        auto it = graph.vertices.find(i);
+        if (dist[*it] == INT_MAX)
+            cout << "-1" << " | ";
+        else
+            cout << dist[*it] << " | ";
+    }
+    cout << "\n------------------------\n";
+}
+
+// void Network:printLsrpOverview(){
+
+// }
+
 void Network::lsrp(int source) {
-    // TODO: Implement this function
+    if (source == -1) {
+        for (auto vertex : graph.vertices) {
+            cout << vertex << endl;
+            lsrp(vertex);
+        // cout << "------------node: " << vertex << "-------------\n";
+        }
+    }
+    else{
+        int dist[graph.vertices.size() + 1];                            // Hold the shortest path data
+        bool visited[graph.vertices.size() + 1];                        // hold the covered area of the lsrp
+        vector<int> parent(graph.vertices.size() + 1, -1);
+
+        for (int i = 0; i < (int)graph.vertices.size() + 1 ; i++){      // initialize arrays
+            dist[i] = INT_MAX; visited[i] = false;
+        }
+        dist[source] = 0;
+        visited[source] = true;
+        updateNeigborsRoute(source, dist, visited, parent);
+        cout << MAGENTA << "Routing table for node " << source << RESET << endl;
+        printLsrpIterations(0 , dist);
+
+        for (int i = 0 ; i < (int)graph.vertices.size() + 1 ; i++){     // Run LSRP
+            int u = findMinAdjacent(dist, visited);
+            if(u == -1)
+                break;
+            visited[u] = true;
+            // cout << "new v:" << u << endl;
+            updateNeigborsRoute(u, dist, visited, parent);
+            printLsrpIterations(i , dist);
+        }
+    }
     return;
 }
 

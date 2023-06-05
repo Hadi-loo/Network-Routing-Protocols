@@ -46,9 +46,16 @@ void CommandHandler::start() {
             handleRemove(args);
         }
         else if (command == "lsrp") {
-            int src;
-            ss >> src;
-            handleLsrp(src);
+            string args;
+            args = line.substr(command.length());
+            if (args == "") {
+                handleLsrp(-1);
+            }
+            else{
+                int src;
+                ss >> src;
+                handleLsrp(src);
+            }
         }
         else if (command == "dvrp") {
             string args;
