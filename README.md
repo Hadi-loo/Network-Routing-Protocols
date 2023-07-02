@@ -1,4 +1,4 @@
-# CN_CHomeworks3
+# Network Routing Protocols
 
 This repo contains a simulation of two famous routing protocols, **Distance Vector(DVRP)** and **Link State(LSRP)** coded with c++.
 
